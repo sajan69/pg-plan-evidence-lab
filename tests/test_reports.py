@@ -21,9 +21,10 @@ class Tags(HTMLParser):
 
 class ReportTests(unittest.TestCase):
     def test_html_and_csv_unknown_loop_semantics(self):
-        report = fixture.run()
+        report = fixture.run(ctx=fixture.context(source='synthetic_fixture'))
         html = serialize(report, 'html').decode()
         self.assertIn('Actual rows/loop', html)
+        self.assertIn('were not measured', html)
         self.assertIn('No performance regression verdict', html)
         rows = list(csv.DictReader(io.StringIO(serialize(report, 'csv').decode())))
         self.assertEqual(len(rows), 3)

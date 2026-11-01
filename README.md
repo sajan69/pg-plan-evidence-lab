@@ -31,7 +31,7 @@ Planner costs are not milliseconds. Actual rows and node times are per-loop aver
 
 The reader validates JSON/context, projects allowed evidence, computes hashes/diagnostics and serializes bounded reports. The separate lab script supplies trusted synthetic captures and correctness/measurement evidence.
 
-See [input and diagnostic semantics](docs/INPUTS.md) and [security boundaries](docs/SECURITY.md).
+See [input and diagnostic semantics](docs/INPUTS.md), [security boundaries](docs/SECURITY.md) and [actual synthetic lab outcomes](docs/EVALUATION.md). The recorded experiment contains all 18 executions per engine and separate server/client medians; it does not certify production performance.
 
 ## References
 

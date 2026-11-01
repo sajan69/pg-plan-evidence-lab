@@ -20,6 +20,7 @@ const {chromium} = require('playwright');
     const inner = await page.locator('tbody tr').nth(2).locator('td').allTextContents();
     assert.deepEqual(inner.slice(2, 7).map(Number), [4, 2, 3, 6, 2]);
     assert.match(await page.locator('body').innerText(), /No performance regression verdict/);
+    assert.match(await page.locator('body').innerText(), /were not measured/);
     results.push('loop-aware values and caveats'); console.log('Passed: ' + results.at(-1));
     await page.getByText('Capture provenance', {exact: true}).click();
     assert.equal(await page.locator('details').getAttribute('open'), '');

@@ -1,0 +1,284 @@
+{
+  "evidence_source": {
+    "commit": "702b382e02712e0609aa17eafdfc0286d009a787",
+    "workflow_run": "https://github.com/sajan69/pg-plan-evidence-lab/actions/runs/41283168513"
+  },
+  "schema_version": 1,
+  "completed": true,
+  "source": "synthetic_lab",
+  "acquired_at": "2026-11-01T07:02:46.971417+00:00",
+  "fixture_rows": 20000,
+  "fixture_sha256": "d783d0d5865093380c1e15985daa5ff0ebd65d5e96adb3ea433ffe71efe628fe",
+  "workload_sha256": "0ab3945367e49e6142ec2db6dac5c57ef6d4333eb7907c2c963c4c75f9075aa2",
+  "server_version_num": 160015,
+  "server_version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+  "python": "3.12.15",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "logical_cpus": 4,
+  "psql_version": "psql (PostgreSQL) 16.15 (Ubuntu 16.15-1.pgdg24.04+2)",
+  "session_settings": {
+    "jit": "off",
+    "max_parallel_workers_per_gather": "0",
+    "work_mem": "16MB",
+    "statement_timeout": "5s",
+    "lock_timeout": "1s",
+    "search_path": "pg_catalog,evidence"
+  },
+  "records": [
+    {
+      "phase": "baseline",
+      "query_alias": "selective",
+      "repeat": 1,
+      "result_sha256": "4248226015f47d843663462a9938f9777c17322034766cfc2de3b30d47fb2f7c",
+      "result_rows": 20,
+      "client_wall_ms": 24.75711299999972,
+      "server_execution_ms": 0.611,
+      "observation_id": "49980388dc9b9202448182a4fe7d671067879f731962f6726f881099065db0b5",
+      "shape_sha256": "4f3a03e66dd27fa7b8356b8c45c201040bf8366ccd059ccff25cb025a5683c99",
+      "nodes": 2
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "selective",
+      "repeat": 2,
+      "result_sha256": "4248226015f47d843663462a9938f9777c17322034766cfc2de3b30d47fb2f7c",
+      "result_rows": 20,
+      "client_wall_ms": 25.053976000002365,
+      "server_execution_ms": 0.614,
+      "observation_id": "3ab77ef6ec2f1b755b7bf24414b2717484eda92e5568675ad5c7cae64f3da623",
+      "shape_sha256": "4f3a03e66dd27fa7b8356b8c45c201040bf8366ccd059ccff25cb025a5683c99",
+      "nodes": 2
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "selective",
+      "repeat": 3,
+      "result_sha256": "4248226015f47d843663462a9938f9777c17322034766cfc2de3b30d47fb2f7c",
+      "result_rows": 20,
+      "client_wall_ms": 26.905300999999326,
+      "server_execution_ms": 0.607,
+      "observation_id": "de0d49fa1e47612d9eb7b60a876d77f108c687e6bd936d4284dda0a990e32dd9",
+      "shape_sha256": "4f3a03e66dd27fa7b8356b8c45c201040bf8366ccd059ccff25cb025a5683c99",
+      "nodes": 2
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "aggregate",
+      "repeat": 1,
+      "result_sha256": "e28025079c8318d495979c851b31280a2dd279f18845d47a3f571ce3fef17e6d",
+      "result_rows": 10,
+      "client_wall_ms": 27.310104999997975,
+      "server_execution_ms": 1.967,
+      "observation_id": "ea85e7737c62d90684df8a01336e63eb4e4468d80778c0d7697c42f7077ae790",
+      "shape_sha256": "899b8c05713404bd2e14485a8de584c4cce7c17fc2c3c35a027b3545cf9145e4",
+      "nodes": 4
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "aggregate",
+      "repeat": 2,
+      "result_sha256": "e28025079c8318d495979c851b31280a2dd279f18845d47a3f571ce3fef17e6d",
+      "result_rows": 10,
+      "client_wall_ms": 30.932245999998997,
+      "server_execution_ms": 3.174,
+      "observation_id": "92a4fad0cbef96a4dcab27bf4e3103e411412566c934e6ac828ab92ee3e19dd3",
+      "shape_sha256": "899b8c05713404bd2e14485a8de584c4cce7c17fc2c3c35a027b3545cf9145e4",
+      "nodes": 4
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "aggregate",
+      "repeat": 3,
+      "result_sha256": "e28025079c8318d495979c851b31280a2dd279f18845d47a3f571ce3fef17e6d",
+      "result_rows": 10,
+      "client_wall_ms": 27.95719200000235,
+      "server_execution_ms": 2.024,
+      "observation_id": "7b212053ec2e3fead476608743512c11f633878ea4966690f3ae82f31c69c314",
+      "shape_sha256": "899b8c05713404bd2e14485a8de584c4cce7c17fc2c3c35a027b3545cf9145e4",
+      "nodes": 4
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "repeated_inner",
+      "repeat": 1,
+      "result_sha256": "fa2078c3a494076a976dfa42f3d01602fa61aa8595741031e142d68d2e8c5ff6",
+      "result_rows": 12,
+      "client_wall_ms": 31.23024899999649,
+      "server_execution_ms": 5.741,
+      "observation_id": "deb0190ed8fb20a4b4df2e3e415e6f55b8ae70940f7036cb22e12d3a8106641e",
+      "shape_sha256": "ac8f0a237fca82500eb8090535af55575de217374ea01b3396ab336a1f7f610e",
+      "nodes": 4
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "repeated_inner",
+      "repeat": 2,
+      "result_sha256": "fa2078c3a494076a976dfa42f3d01602fa61aa8595741031e142d68d2e8c5ff6",
+      "result_rows": 12,
+      "client_wall_ms": 31.15885400000451,
+      "server_execution_ms": 5.848,
+      "observation_id": "fb7f30021d2633fef17be9cc33ab3b860c4495d2c2eba3ab5e4a758b50676fb3",
+      "shape_sha256": "ac8f0a237fca82500eb8090535af55575de217374ea01b3396ab336a1f7f610e",
+      "nodes": 4
+    },
+    {
+      "phase": "baseline",
+      "query_alias": "repeated_inner",
+      "repeat": 3,
+      "result_sha256": "fa2078c3a494076a976dfa42f3d01602fa61aa8595741031e142d68d2e8c5ff6",
+      "result_rows": 12,
+      "client_wall_ms": 31.243700000004537,
+      "server_execution_ms": 5.725,
+      "observation_id": "fd044f15df4ce38baed20939a7e413083a18530fcf62bfba9a9e556d7ee09905",
+      "shape_sha256": "ac8f0a237fca82500eb8090535af55575de217374ea01b3396ab336a1f7f610e",
+      "nodes": 4
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "selective",
+      "repeat": 1,
+      "result_sha256": "4248226015f47d843663462a9938f9777c17322034766cfc2de3b30d47fb2f7c",
+      "result_rows": 20,
+      "client_wall_ms": 25.166223999995907,
+      "server_execution_ms": 0.046,
+      "observation_id": "513f750a81494f33dbed5c108aed8bf230586f60f91499457c43dab4533ae8fb",
+      "shape_sha256": "3cd39799b8ffc503e93c73ceb54b5789a11a0396141a7150b1a39a663e9711d6",
+      "nodes": 1
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "selective",
+      "repeat": 2,
+      "result_sha256": "4248226015f47d843663462a9938f9777c17322034766cfc2de3b30d47fb2f7c",
+      "result_rows": 20,
+      "client_wall_ms": 25.32257600000065,
+      "server_execution_ms": 0.046,
+      "observation_id": "aa08be68442ca9210f50d805767dc20893228335b839461a9b7a811dae1a2341",
+      "shape_sha256": "3cd39799b8ffc503e93c73ceb54b5789a11a0396141a7150b1a39a663e9711d6",
+      "nodes": 1
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "selective",
+      "repeat": 3,
+      "result_sha256": "4248226015f47d843663462a9938f9777c17322034766cfc2de3b30d47fb2f7c",
+      "result_rows": 20,
+      "client_wall_ms": 24.818845999995176,
+      "server_execution_ms": 0.045,
+      "observation_id": "8ed4cf6f9ff81615fadd19e07467730307ac298660aae53202bb8a7cbedc2911",
+      "shape_sha256": "3cd39799b8ffc503e93c73ceb54b5789a11a0396141a7150b1a39a663e9711d6",
+      "nodes": 1
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "aggregate",
+      "repeat": 1,
+      "result_sha256": "e28025079c8318d495979c851b31280a2dd279f18845d47a3f571ce3fef17e6d",
+      "result_rows": 10,
+      "client_wall_ms": 26.598733000000152,
+      "server_execution_ms": 0.092,
+      "observation_id": "c2810d813405a56b6e1ca762e1ca2d6d3337ea091c8f4960df656cff9ab7e79c",
+      "shape_sha256": "0d58664ad4af04600262d5e784c8ecaff3cb41315f70f4bf6ba31018b1bb28ae",
+      "nodes": 3
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "aggregate",
+      "repeat": 2,
+      "result_sha256": "e28025079c8318d495979c851b31280a2dd279f18845d47a3f571ce3fef17e6d",
+      "result_rows": 10,
+      "client_wall_ms": 25.935011999997926,
+      "server_execution_ms": 0.092,
+      "observation_id": "6d1f1289f897566f7c5a068e12e0160139a9e3f8f71191ee0e409965ce2f3f5f",
+      "shape_sha256": "0d58664ad4af04600262d5e784c8ecaff3cb41315f70f4bf6ba31018b1bb28ae",
+      "nodes": 3
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "aggregate",
+      "repeat": 3,
+      "result_sha256": "e28025079c8318d495979c851b31280a2dd279f18845d47a3f571ce3fef17e6d",
+      "result_rows": 10,
+      "client_wall_ms": 24.564714000000265,
+      "server_execution_ms": 0.093,
+      "observation_id": "02b1c8b7dc048d1f26cd533aed8e8521582059c7123cd0ba34bc66708088491c",
+      "shape_sha256": "0d58664ad4af04600262d5e784c8ecaff3cb41315f70f4bf6ba31018b1bb28ae",
+      "nodes": 3
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "repeated_inner",
+      "repeat": 1,
+      "result_sha256": "fa2078c3a494076a976dfa42f3d01602fa61aa8595741031e142d68d2e8c5ff6",
+      "result_rows": 12,
+      "client_wall_ms": 25.003732000001833,
+      "server_execution_ms": 0.643,
+      "observation_id": "94f76fa0f269c6865c999cca61afd62333301cc2ea08a76b7cf140006a6abfd1",
+      "shape_sha256": "5aa9fa2070a7c4938fc0eaff499ba671e2463e5269432e3798f4da96b3bbd0db",
+      "nodes": 4
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "repeated_inner",
+      "repeat": 2,
+      "result_sha256": "fa2078c3a494076a976dfa42f3d01602fa61aa8595741031e142d68d2e8c5ff6",
+      "result_rows": 12,
+      "client_wall_ms": 24.863592000002654,
+      "server_execution_ms": 0.66,
+      "observation_id": "af2caa18f9bf176465c9a2d0af6266702c76d9d0b76d692a499a59378d832ee1",
+      "shape_sha256": "5aa9fa2070a7c4938fc0eaff499ba671e2463e5269432e3798f4da96b3bbd0db",
+      "nodes": 4
+    },
+    {
+      "phase": "indexed",
+      "query_alias": "repeated_inner",
+      "repeat": 3,
+      "result_sha256": "fa2078c3a494076a976dfa42f3d01602fa61aa8595741031e142d68d2e8c5ff6",
+      "result_rows": 12,
+      "client_wall_ms": 24.98251899999815,
+      "server_execution_ms": 0.652,
+      "observation_id": "1ae11457c88a8881967687956e46aad50517312710af8beb03639cb376aba622",
+      "shape_sha256": "5aa9fa2070a7c4938fc0eaff499ba671e2463e5269432e3798f4da96b3bbd0db",
+      "nodes": 4
+    }
+  ],
+  "summaries": [
+    {
+      "query_alias": "selective",
+      "phase": "baseline",
+      "client_wall_median_ms": 25.053976000002365,
+      "server_execution_median_ms": 0.611
+    },
+    {
+      "query_alias": "selective",
+      "phase": "indexed",
+      "client_wall_median_ms": 25.166223999995907,
+      "server_execution_median_ms": 0.046
+    },
+    {
+      "query_alias": "aggregate",
+      "phase": "baseline",
+      "client_wall_median_ms": 27.95719200000235,
+      "server_execution_median_ms": 2.024
+    },
+    {
+      "query_alias": "aggregate",
+      "phase": "indexed",
+      "client_wall_median_ms": 25.935011999997926,
+      "server_execution_median_ms": 0.092
+    },
+    {
+      "query_alias": "repeated_inner",
+      "phase": "baseline",
+      "client_wall_median_ms": 31.23024899999649,
+      "server_execution_median_ms": 5.741
+    },
+    {
+      "query_alias": "repeated_inner",
+      "phase": "indexed",
+      "client_wall_median_ms": 24.98251899999815,
+      "server_execution_median_ms": 0.652
+    }
+  ],
+  "method": "Three fixed queries, three repeats per configuration; baseline always before indexed. Correctness SELECT before each timed group warms caches. TIMING OFF retains statement time. Client wall includes psql startup, connection, SQL and JSON parsing; excludes inspection and writes. No cache reset or independent latency baseline; instrumented server time is not application latency."
+}

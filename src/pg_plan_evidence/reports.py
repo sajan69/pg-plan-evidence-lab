@@ -79,7 +79,8 @@ def render_html(report):
         parts.append('<article><h2>' + e(label) + ': ' + e(ctx['query_alias']) + '</h2>'
                      '<p>Source: ' + e(ctx['source']) + '; PostgreSQL numeric version: '
                      + e(ctx['server_version_num']) + '; captured: ' + e(ctx['captured_at']) + '.</p>'
-                     '<p>Reported server execution time: ' + e(capture['statement_times_ms'].get('Execution Time'))
+                     + ('<p>Handwritten synthetic fixture: these values illustrate semantics and were not measured.</p>' if ctx['source'] == 'synthetic_fixture' else '')
+                     + '<p>' + ('Illustrative execution-time field: ' if ctx['source'] == 'synthetic_fixture' else 'Reported server execution time: ') + e(capture['statement_times_ms'].get('Execution Time'))
                      + ' ms. This is not client latency. Planner costs are arbitrary units.</p><ul>')
         parts.extend('<li>' + e(warning) + '</li>' for warning in capture['warnings'])
         parts.append('</ul><div class="scroll"><table><thead><tr>'
