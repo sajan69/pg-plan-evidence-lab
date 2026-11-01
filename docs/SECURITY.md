@@ -1,0 +1,11 @@
+# Local input and output boundaries
+
+The application has no database driver, network client, SQL executor, arbitrary code/plugin loading or deserialization of executable objects. It reads bounded local JSON and creates a new JSON output. Raw PostgreSQL captures may contain personal information, literals, credentials or object names; keep real captures outside Git, using the ignored `private/` directory where appropriate. The bundled data is handwritten synthetic JSON.
+
+Only reviewed enums and numeric fields are projected. Query aliases and manifest hashes are retained and may still be sensitive. Omitted fields, user-declared synthetic source labels and hashes are not a privacy assessment, secret scanner, universal redactor or source authentication mechanism. Inspect a report before sharing it. Internal Python functions take trusted programmer-created objects; the byte/file CLI path is the validation boundary.
+
+File inputs must be regular and not symlinks. Readers use bounded reads, recheck the opened file descriptor and use no-follow/nonblocking flags where available. Output uses exclusive creation and POSIX mode 0600; existing files and symlinks are refused. Parent directories must be trusted. This is not a hostile-filesystem race guarantee, encryption, atomic durable persistence or a Windows ACL configuration. Physical write failure can leave a partial output file. No raw input is copied into a report; its SHA-256 and projected numeric/structural evidence are retained.
+
+JSON errors use fixed codes without input values or file paths. Parsing itself occurs before the iterative depth/value budget check; oversized input is capped first and parser recursion failures are caught. Bounds reduce resource exposure but do not constitute a hostile-document security certification.
+
+`EXPLAIN ANALYZE` runs SQL, including side effects. Offline inspection does not make a production capture safe to publish and does not authorize any future collector to execute arbitrary SQL. Read-only transactions are useful controls for trusted lab queries, not a sandbox for volatile functions or arbitrary database access. No production database use is claimed here.

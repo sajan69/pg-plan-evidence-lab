@@ -1,0 +1,25 @@
+name: offline-evidence
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip wheel --no-deps . --wheel-dir dist
+      - run: python -m pip install --no-deps dist/*.whl
+      - run: python -m pip check
+      - run: python -m unittest discover -s tests -v
+      - run: pg-plan-evidence --version
+      - name: Offline synthetic demonstration
+        run: |
+          mkdir -p artifacts
+          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --out artifacts/inspection.json
+          pg-plan-evidence compare examples/plan.json examples/plan.json --left-manifest examples/manifest.json --right-manifest examples/manifest.json --out artifacts/comparison.json

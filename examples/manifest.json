@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "source": "synthetic_fixture",
+  "server_version_num": 180006,
+  "query_alias": "nested_demo",
+  "captured_at": "2026-11-01T10:00:00+10:00",
+  "query_sha256": "bbfb13820b4cee5f2d5d82cca55f0a5f8aade4f8f6b439be3caf27028fa354f2",
+  "fixture_sha256": "444a7adc63069b2c0ab00849a858f80f14d1e3c58131a5d41b40292de6e0a32e",
+  "workload_sha256": "1a7ba484674f2b8cd76b215b0148246c44c8bf5c7555c05305d5a2181bf3d661",
+  "settings_sha256": "0cc1adae533e875b98d51d7c579c432c536114005c1c19cadada76a876937169"
+}

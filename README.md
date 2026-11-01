@@ -1,20 +1,39 @@
 # PostgreSQL Plan Evidence Lab
 
-PostgreSQL query-plan analysis and reproducible performance experiments for a disposable synthetic database.
+Offline PostgreSQL query-plan inspection and context-gated comparison. The reader separates structural changes, per-loop row estimates and measured execution fields, without treating a changed plan as a performance regression.
 
-The research scope is offline comparison of bounded `EXPLAIN (FORMAT JSON)` captures and controlled PostgreSQL 16/18 lab workloads. Plan structure, row estimates, execution measurements and workload provenance are separate kinds of evidence; a changed plan alone does not establish a performance regression.
+## Setup and use
 
-## Data and execution boundaries
+Python 3.11 or newer; no runtime dependencies, database connection or network access required.
 
-Use synthetic lab data. Raw plans can contain SQL expressions, literals and database object names; do not publish production captures or assume that removing selected fields guarantees redaction.
+```sh
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install .
+pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --out inspection.json
+pg-plan-evidence compare examples/plan.json examples/plan.json \
+  --left-manifest examples/manifest.json --right-manifest examples/manifest.json --out comparison.json
+python -m unittest discover -s tests -v
+```
 
-`EXPLAIN ANALYZE` executes the statement. Any lab collector must execute only reviewed, fixed queries in a disposable database. A read-only transaction alone is not a sandbox for arbitrary SQL.
+Output destinations must be new files. Comparisons with mismatched query, fixture, workload, source or exact server version produce `status: blocked`; consumers must check this field. A context match is a caller-declared precondition, not proof of equivalent queries or conditions. Settings hashes may differ to describe a deliberate configuration experiment.
 
-No executable tooling or measured results are included yet.
+The example is a **handwritten synthetic JSON fixture**, not a PostgreSQL execution or benchmark. Its repeated inner node has estimated rows 4, actual rows 2 per loop and 3 loops: q-error is 2 and approximate emitted rows across loops are 6. Missing actuals remain unknown. No real database evaluation or performance findings are included.
+
+## Evidence and safety
+
+The adapter supports a reviewed structural/numeric subset of PostgreSQL 16/18 JSON plans. It removes SQL, expressions, object names and worker detail from the projection. Input hashes and controlled context aliases remain; review these before sharing. This is not a general redaction service.
+
+`EXPLAIN ANALYZE` executes its statement. This tool only reads files and never executes SQL. Any future collector must use reviewed fixed queries in a disposable synthetic database; a read-only transaction alone is not an arbitrary-SQL sandbox.
+
+Planner costs are not milliseconds. Actual rows and node times are per-loop averages. Parent times and buffers include descendants, and parallel or partially consumed plans complicate interpretation. Matching projected shape does not establish equivalent predicates, indexes, work or performance.
+
+See [input and diagnostic semantics](docs/INPUTS.md) and [security boundaries](docs/SECURITY.md).
 
 ## References
 
 - [PostgreSQL 18: using EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
+- [PostgreSQL 16: EXPLAIN command](https://www.postgresql.org/docs/16/sql-explain.html)
 - [PostgreSQL 18: EXPLAIN command](https://www.postgresql.org/docs/18/sql-explain.html)
 
-Planner costs are not milliseconds. Actual row counts and execution times reported for repeatedly executed nodes are per-execution averages; loop counts matter when interpreting them. Inclusive parent/child timings must not be summed as independent work.
+The version-specific references were checked on 1 November 2026. New development-branch fields are not assumed to be released features.
