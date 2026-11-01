@@ -50,28 +50,7 @@ jobs:
       matrix:
         postgres: ['16', '18']
     services:
-          - name: Report exports
-        run: |
-          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format html --out artifacts/inspection.html
-          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format csv --out artifacts/inspection.csv
-          python browser/probe.py artifacts/inspection.json artifacts/probe.html
-      - uses: actions/setup-node@v4
-        if: matrix.python == '3.12'
-        with:
-          node-version: '24'
-      - run: npm ci --prefix browser --ignore-scripts
-        if: matrix.python == '3.12'
-      - run: npx --prefix browser playwright install --with-deps chromium
-        if: matrix.python == '3.12'
-      - run: npm test --prefix browser
-        if: matrix.python == '3.12'
-      - uses: actions/upload-artifact@v4
-        if: always() && matrix.python == '3.12'
-        with:
-          name: offline-report-browser
-          path: artifacts/
-          retention-days: 7
-  postgres:
+      postgres:
         image: postgres:${{ matrix.postgres }}
         env:
           POSTGRES_PASSWORD: disposable-lab-admin
@@ -96,6 +75,21 @@ jobs:
       - run: python -m pip check
       - run: mkdir -p artifacts
       - run: python -m scripts.collect_lab --disposable-lab --out artifacts/lab
+      - name: Actual capture round trip and reports
+        run: |
+          pg-plan-evidence compare artifacts/lab/baseline-repeated_inner-1-raw.json artifacts/lab/indexed-repeated_inner-1-raw.json --left-manifest artifacts/lab/baseline-repeated_inner-1-manifest.json --right-manifest artifacts/lab/indexed-repeated_inner-1-manifest.json --out artifacts/real-comparison.json
+          pg-plan-evidence compare artifacts/lab/baseline-repeated_inner-1-raw.json artifacts/lab/indexed-repeated_inner-1-raw.json --left-manifest artifacts/lab/baseline-repeated_inner-1-manifest.json --right-manifest artifacts/lab/indexed-repeated_inner-1-manifest.json --format html --out artifacts/real-comparison.html
+          pg-plan-evidence compare artifacts/lab/baseline-repeated_inner-1-raw.json artifacts/lab/indexed-repeated_inner-1-raw.json --left-manifest artifacts/lab/baseline-repeated_inner-1-manifest.json --right-manifest artifacts/lab/indexed-repeated_inner-1-manifest.json --format csv --out artifacts/real-comparison.csv
+          python - <<'PYCODE'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('artifacts/real-comparison.json').read_text())
+          assert r['status'] == 'context_matched' and r['settings_changed'] is True
+          for label, phase in [('left', 'baseline'), ('right', 'indexed')]:
+              stored = json.loads(Path(f'artifacts/lab/{phase}-repeated_inner-1-inspection.json').read_text())
+              assert stored == r[label]
+          print('LAB_COMPARISON=' + json.dumps({label: {'shape': r[label]['shape_sha256'], 'repeated_nodes': [n for n in r[label]['nodes'] if n['fields'].get('Actual Loops', 0) > 1]} for label in ['left','right']}, separators=(',', ':')))
+          PYCODE
       - name: Reject a populated lab
         run: |
           if python -m scripts.collect_lab --disposable-lab --out artifacts/second; then
