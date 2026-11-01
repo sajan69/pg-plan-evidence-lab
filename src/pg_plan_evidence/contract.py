@@ -37,9 +37,16 @@ def strict_json(raw, cap):
     def constant(_):
         fail("nonfinite_number")
 
+    def floating(token):
+        value = float(token)
+        mantissa = token.lower().split("e", 1)[0]
+        if not math.isfinite(value) or (value == 0 and any(c in "123456789" for c in mantissa)):
+            fail("nonfinite_or_underflow")
+        return value
+
     try:
         value = json.loads(raw.decode("utf-8"), object_pairs_hook=pairs,
-                           parse_constant=constant)
+                           parse_constant=constant, parse_float=floating)
     except (UnicodeError, json.JSONDecodeError, RecursionError, ValueError) as exc:
         if isinstance(exc, EvidenceError):
             raise

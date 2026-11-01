@@ -52,7 +52,7 @@ class AnalysisTests(unittest.TestCase):
                 self.assertEqual((d["status"], d["q_error_per_loop"]), (status, q))
 
     def test_strict_json_everywhere(self):
-        for raw in (b'[{"Plan":{},"Plan":{}}]', b'[{"extra":NaN}]', b'[{"extra":1e999}]',
+        for raw in (b'[{"Plan":{},"Plan":{}}]', b'[{"extra":NaN}]', b'[{"extra":1e999}]', b'[{"extra":1e-999}]',
                     b'\xff', b'\xef\xbb\xbf[]', b'[] trailing'):
             with self.subTest(raw=raw), self.assertRaises(EvidenceError):
                 inspect(raw, canonical(context()))

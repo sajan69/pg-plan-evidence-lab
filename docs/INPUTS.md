@@ -1,6 +1,6 @@
 # Capture and diagnostic semantics
 
-The CLI takes a local PostgreSQL `EXPLAIN (FORMAT JSON)` document containing exactly one statement object and one `Plan`, plus a separate manifest. UTF-8 JSON only; duplicate keys, BOM, nonfinite values (including overflow in discarded fields), malformed JSON and trailing content are refused. There is no skip-invalid mode.
+The CLI takes a local PostgreSQL `EXPLAIN (FORMAT JSON)` document containing exactly one statement object and one `Plan`, plus a separate manifest. UTF-8 JSON only; duplicate keys, BOM, nonfinite values and float underflow (including discarded fields), malformed JSON and trailing content are refused. There is no skip-invalid mode.
 
 ## Manifest v1
 
