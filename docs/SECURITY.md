@@ -9,3 +9,5 @@ File inputs must be regular and not symlinks. Readers use bounded reads, recheck
 JSON errors use fixed codes without input values or file paths. Parsing itself occurs before the iterative depth/value budget check; oversized input is capped first and parser recursion failures are caught. Bounds reduce resource exposure but do not constitute a hostile-document security certification.
 
 `EXPLAIN ANALYZE` runs SQL, including side effects. Offline inspection does not make a production capture safe to publish and does not authorize any future collector to execute arbitrary SQL. Read-only transactions are useful controls for trusted lab queries, not a sandbox for volatile functions or arbitrary database access. No production database use is claimed here.
+
+HTML escapes retained text and uses a fixed-style hash CSP with no script or remote assets. CSV quotes cells and prefixes formula-like strings; spreadsheet handling varies. Output formats remain private local files until explicitly shared.

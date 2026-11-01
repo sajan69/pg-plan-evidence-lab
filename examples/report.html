@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; style-src &#x27;sha256-4/3enYvHnOQdfcPlW6ivQAljUQOrQFcN3K3hTMFxaRE=&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;"><title>PostgreSQL Plan Evidence</title><style>body{font:16px system-ui,sans-serif;margin:auto;padding:24px;max-width:1100px;color:#173042;background:#f5f8fa}h1,h2{line-height:1.2}article{padding:16px;margin:20px 0;background:white;border:1px solid #cad5dc;border-radius:8px}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:8px;text-align:left;border-bottom:1px solid #dce4e9;white-space:nowrap}th{background:#e8f0f4}pre{white-space:pre-wrap;overflow-wrap:anywhere}p,li,summary{overflow-wrap:anywhere}summary{cursor:pointer}code{overflow-wrap:anywhere}</style><body><h1>PostgreSQL Plan Evidence</h1><p>Offline structural and row-estimate evidence. No performance regression verdict.</p><article><h2>inspection: nested_demo</h2><p>Source: synthetic_fixture; PostgreSQL numeric version: 180006; captured: 2026-11-01T00:00:00+00:00.</p><p>Reported server execution time: 0.2 ms. This is not client latency. Planner costs are arbitrary units.</p><ul><li>Caller-declared context and hashes are not publisher or query authentication.</li><li>Projection omits SQL, names, expressions and worker details; it is not a general redactor.</li><li>Shape excludes predicates, object names and many execution properties; equal shape is not equal work.</li><li>Actual rows are per-loop averages; products are approximate emitted rows, not distinct tuples.</li><li>Partial consumption, parallel execution and early termination can confound estimate comparisons.</li><li>Node times and buffer counts include descendants; do not sum them across the tree.</li><li>A single instrumented execution is not a latency benchmark or regression verdict.</li></ul><div class="scroll"><table><thead><tr><th>Path</th><th>Node</th><th>Estimated rows/loop</th><th>Actual rows/loop</th><th>Loops</th><th>Approx. emitted rows</th><th>Q-error</th><th>Status</th></tr></thead><tbody><tr><td>0</td><td>Nested Loop</td><td>10</td><td>6</td><td>1</td><td>6</td><td>1.6666666666666667</td><td>positive</td></tr><tr><td>0.0</td><td>Seq Scan</td><td>5</td><td>3</td><td>1</td><td>3</td><td>1.6666666666666667</td><td>positive</td></tr><tr><td>0.1</td><td>Index Scan</td><td>4</td><td>2</td><td>3</td><td>6</td><td>2.0</td><td>positive</td></tr></tbody></table></div><details><summary>Capture provenance</summary><pre>{
+  &quot;provenance&quot;: {
+    &quot;adapter&quot;: &quot;pg-explain-v1&quot;,
+    &quot;context&quot;: {
+      &quot;schema_version&quot;: 1,
+      &quot;source&quot;: &quot;synthetic_fixture&quot;,
+      &quot;server_version_num&quot;: 180006,
+      &quot;query_alias&quot;: &quot;nested_demo&quot;,
+      &quot;captured_at&quot;: &quot;2026-11-01T00:00:00+00:00&quot;,
+      &quot;query_sha256&quot;: &quot;bbfb13820b4cee5f2d5d82cca55f0a5f8aade4f8f6b439be3caf27028fa354f2&quot;,
+      &quot;fixture_sha256&quot;: &quot;444a7adc63069b2c0ab00849a858f80f14d1e3c58131a5d41b40292de6e0a32e&quot;,
+      &quot;workload_sha256&quot;: &quot;1a7ba484674f2b8cd76b215b0148246c44c8bf5c7555c05305d5a2181bf3d661&quot;,
+      &quot;settings_sha256&quot;: &quot;0cc1adae533e875b98d51d7c579c432c536114005c1c19cadada76a876937169&quot;
+    },
+    &quot;raw_sha256&quot;: &quot;e6107c69b9875cc88a61ee3c8855fc648c519501b5baf2118d94a3e5350e1959&quot;
+  },
+  &quot;observation_id&quot;: &quot;29546de54d6c52d22712b3fa4af51e098084a9e9c8ce4a28661d204474be8748&quot;,
+  &quot;projection_sha256&quot;: &quot;fb57db3e3cd1cded31e7b7e33926e77103e4e941d14d2656ba0a02f34a799fb6&quot;,
+  &quot;shape_sha256&quot;: &quot;4b3f71ec397589a4278871abe4bf5378566044a5bc1f8a562804749d49b840e6&quot;
+}</pre></details></article><p>Node paths belong to each capture. Matching paths in different shapes do not establish correspondence. Unknown measurements remain unknown, never zero.</p></body></html>

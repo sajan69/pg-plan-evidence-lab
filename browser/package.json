@@ -1,0 +1,7 @@
+{
+  "name": "pg-plan-evidence-browser-checks",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {"test": "node report.cjs"},
+  "devDependencies": {"playwright": "1.64.1"}
+}

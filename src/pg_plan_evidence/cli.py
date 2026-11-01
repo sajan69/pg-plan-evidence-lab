@@ -22,6 +22,8 @@ def main(argv=None):
     two.add_argument("--left-manifest", required=True)
     two.add_argument("--right-manifest", required=True)
     two.add_argument("--out", required=True)
+    for command in (one, two):
+        command.add_argument("--format", choices=("json", "csv", "html"), default="json")
     args = parser.parse_args(argv)
     try:
         if os.path.lexists(args.out):
@@ -33,7 +35,7 @@ def main(argv=None):
         else:
             result = compare(capture(args.left, args.left_manifest),
                              capture(args.right, args.right_manifest))
-        write(args.out, result)
+        write(args.out, result, args.format)
         print("written")
         return 0
     except EvidenceError as exc:

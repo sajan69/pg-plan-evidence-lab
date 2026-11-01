@@ -13,6 +13,7 @@ python -m pip install .
 pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --out inspection.json
 pg-plan-evidence compare examples/plan.json examples/plan.json \
   --left-manifest examples/manifest.json --right-manifest examples/manifest.json --out comparison.json
+pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format html --out report.html
 python -m unittest discover -s tests -v
 ```
 
@@ -27,6 +28,8 @@ The adapter supports a reviewed structural/numeric subset of PostgreSQL 16/18 JS
 `EXPLAIN ANALYZE` executes its statement. The installed offline commands only read files and never execute SQL. The repository-only lab collector explicitly runs reviewed synthetic queries. The collector must use reviewed fixed queries in a disposable synthetic database; a read-only transaction alone is not an arbitrary-SQL sandbox.
 
 Planner costs are not milliseconds. Actual rows and node times are per-loop averages. Parent times and buffers include descendants, and parallel or partially consumed plans complicate interpretation. Matching projected shape does not establish equivalent predicates, indexes, work or performance.
+
+The reader validates JSON/context, projects allowed evidence, computes hashes/diagnostics and serializes bounded reports. The separate lab script supplies trusted synthetic captures and correctness/measurement evidence.
 
 See [input and diagnostic semantics](docs/INPUTS.md) and [security boundaries](docs/SECURITY.md).
 

@@ -1,8 +1,8 @@
 """Bounded local files in trusted directories; no network or SQL."""
-import json
 import os
 import stat
 from .contract import fail
+from .reports import serialize
 
 
 def read(path, cap):
@@ -18,10 +18,8 @@ def read(path, cap):
     return raw
 
 
-def write(path, result):
-    raw = (json.dumps(result, indent=2, allow_nan=False) + "\n").encode()
-    if len(raw) > 2 * 1024 * 1024:
-        fail("output_size")
+def write(path, result, format="json"):
+    raw = serialize(result, format)
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     with os.fdopen(fd, "wb") as handle:
         handle.write(raw)

@@ -23,13 +23,55 @@ jobs:
           mkdir -p artifacts
           pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --out artifacts/inspection.json
           pg-plan-evidence compare examples/plan.json examples/plan.json --left-manifest examples/manifest.json --right-manifest examples/manifest.json --out artifacts/comparison.json
+      - name: Report exports
+        run: |
+          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format html --out artifacts/inspection.html
+          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format csv --out artifacts/inspection.csv
+          python browser/probe.py artifacts/inspection.json artifacts/probe.html
+      - uses: actions/setup-node@v4
+        if: matrix.python == '3.12'
+        with:
+          node-version: '24'
+      - run: npm ci --prefix browser --ignore-scripts
+        if: matrix.python == '3.12'
+      - run: npx --prefix browser playwright install --with-deps chromium
+        if: matrix.python == '3.12'
+      - run: npm test --prefix browser
+        if: matrix.python == '3.12'
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.python == '3.12'
+        with:
+          name: offline-report-browser
+          path: artifacts/
+          retention-days: 7
   postgres:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         postgres: ['16', '18']
     services:
-      postgres:
+          - name: Report exports
+        run: |
+          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format html --out artifacts/inspection.html
+          pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --format csv --out artifacts/inspection.csv
+          python browser/probe.py artifacts/inspection.json artifacts/probe.html
+      - uses: actions/setup-node@v4
+        if: matrix.python == '3.12'
+        with:
+          node-version: '24'
+      - run: npm ci --prefix browser --ignore-scripts
+        if: matrix.python == '3.12'
+      - run: npx --prefix browser playwright install --with-deps chromium
+        if: matrix.python == '3.12'
+      - run: npm test --prefix browser
+        if: matrix.python == '3.12'
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.python == '3.12'
+        with:
+          name: offline-report-browser
+          path: artifacts/
+          retention-days: 7
+  postgres:
         image: postgres:${{ matrix.postgres }}
         env:
           POSTGRES_PASSWORD: disposable-lab-admin
