@@ -1,6 +1,6 @@
 # Local input and output boundaries
 
-The application has no database driver, network client, SQL executor, arbitrary code/plugin loading or deserialization of executable objects. It reads bounded local JSON and creates a new JSON output. Raw PostgreSQL captures may contain personal information, literals, credentials or object names; keep real captures outside Git, using the ignored `private/` directory where appropriate. The bundled data is handwritten synthetic JSON.
+The installed offline reader has no database driver, network client, SQL executor, arbitrary code/plugin loading or deserialization of executable objects. The separate repository lab script invokes psql for fixed synthetic queries; see [its constraints](LAB.md). It reads bounded local JSON and creates a new JSON output. Raw PostgreSQL captures may contain personal information, literals, credentials or object names; keep real captures outside Git, using the ignored `private/` directory where appropriate. The bundled data is handwritten synthetic JSON.
 
 Only reviewed enums and numeric fields are projected. Query aliases and manifest hashes are retained and may still be sensitive. Omitted fields, user-declared synthetic source labels and hashes are not a privacy assessment, secret scanner, universal redactor or source authentication mechanism. Inspect a report before sharing it. Internal Python functions take trusted programmer-created objects; the byte/file CLI path is the validation boundary.
 

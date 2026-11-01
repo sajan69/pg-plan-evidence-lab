@@ -23,3 +23,45 @@ jobs:
           mkdir -p artifacts
           pg-plan-evidence inspect examples/plan.json --manifest examples/manifest.json --out artifacts/inspection.json
           pg-plan-evidence compare examples/plan.json examples/plan.json --left-manifest examples/manifest.json --right-manifest examples/manifest.json --out artifacts/comparison.json
+  postgres:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        postgres: ['16', '18']
+    services:
+      postgres:
+        image: postgres:${{ matrix.postgres }}
+        env:
+          POSTGRES_PASSWORD: disposable-lab-admin
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: '5432'
+      PGPASSWORD: disposable-lab-admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip wheel --no-deps . --wheel-dir dist
+      - run: python -m pip install --no-deps dist/*.whl
+      - run: python -m pip check
+      - run: mkdir -p artifacts
+      - run: python -m scripts.collect_lab --disposable-lab --out artifacts/lab
+      - name: Reject a populated lab
+        run: |
+          if python -m scripts.collect_lab --disposable-lab --out artifacts/second; then
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: postgres-${{ matrix.postgres }}-evidence
+          path: artifacts/
+          retention-days: 7
